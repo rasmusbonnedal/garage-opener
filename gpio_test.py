@@ -1,15 +1,28 @@
 #!/usr/bin/env python
 
 import RPi.GPIO as GPIO
-from time import sleep  # Import sleep Module for timing
+from time import sleep
+from flask import Flask, render_template, request, redirect, url_for
 
-GPIO.setmode(GPIO.BCM)  # Configures how we are describing our pin numbering
-GPIO.setwarnings(False)  # Disable Warnings
+def trigger_garage_button():
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setwarnings(False)
+    pin = 22
+    GPIO.setup(pin, GPIO.OUT)
+    GPIO.output(pin, True)
+    sleep(0.5)
+    GPIO.output(pin, False)
 
-pin = 22
-GPIO.setup(pin, GPIO.OUT)
+app = Flask(__name__)
 
-sleep(5)
-GPIO.output(pin, True)
-sleep(1)
-GPIO.output(pin, False)
+@app.route('/garage', methods=['GET', 'POST'])
+def garage():
+    if request.method == 'POST':
+        trigger_garage_button()
+        return redirect(url_for('garage'))
+    else:
+        return render_template('garage.html')
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0')
+
