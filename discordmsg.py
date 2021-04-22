@@ -3,6 +3,9 @@ import os
 from dotenv import load_dotenv
 
 def send_message(msg):
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    asyncio.get_event_loop()
     import discord
     load_dotenv()
     TOKEN = os.getenv('DISCORD_TOKEN')
@@ -21,9 +24,9 @@ def send_message(msg):
                 break
 
         await channel.send(msg)
-        print(f'{channel.name} (id: {channel.id})')
-        print(f'{client.user} has connected to Discord!')
-        print(f'{guild.name} (id: {guild.id})')
+        # print(f'{channel.name} (id: {channel.id})')
+        # print(f'{client.user} has connected to Discord!')
+        # print(f'{guild.name} (id: {guild.id})')
         await client.close()
 
     loop = asyncio.get_event_loop()
