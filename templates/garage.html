@@ -6,6 +6,13 @@
   <body>
     <div class="w3-container">
       <h1>Garage Opener</h1>
+      <p>Distance: {{ distance }} cm</p>
+      {% if garage_open %}
+      <p>Garage is open</p>
+      {% else %}
+      <p>Garage is closed</p>
+      {% endif %}
+
     </div>
 
     <div class="w3-container w3-display-middle">
