@@ -1,6 +1,7 @@
 <html>
   <title>Garage Opener</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="refresh" content="60">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3mobile.css">
   <body>
@@ -17,7 +18,14 @@
 
     <div class="w3-container w3-display-middle">
       <form action="" method="post">
-	<button class="w3-button w3-round w3-grey w3-xxlarge" type="submit">Open</button>
+	<button class="w3-button w3-round w3-grey w3-xxlarge" type="submit">
+	  {% if garage_open %}
+	  Close
+	  {% else %}
+	  Open
+	  {% endif %}
+	</button>
+	<input id="nonce" name="nonce" type="hidden" value="{{ nonce }}">
       </form>
     </div>
   </body>
